@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx nuxi@latest init . --packageManager npm --no-install)",
+      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install)",
+      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force)",
+      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force --no-gitInit)",
+      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force --no-gitInit --no-modules)",
+      "Bash(npm install:*)",
+      "Bash(timeout 20 npm run dev)"
+    ]
+  }
+}
