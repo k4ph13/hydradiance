@@ -36,7 +36,15 @@
       "Bash(ssh-keygen *)",
       "Bash(ssh -vT -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes git@github.com)",
       "Bash(git checkout *)",
-      "Bash(git merge *)"
+      "Bash(git merge *)",
+      "Bash(git push *)",
+      "Bash(curl -s https://api.github.com/repos/k4ph13/hydradiance/actions/runs?per_page=5)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s \"https://api.github.com/repos/k4ph13/hydradiance/actions/runs?per_page=5\")",
+      "Bash(curl -s \"https://api.github.com/repos/k4ph13/hydradiance/actions/runs/30111493620/jobs\")",
+      "Bash(curl *)",
+      "Bash(git ls-tree *)",
+      "Bash(git rm *)"
     ]
   }
 }
