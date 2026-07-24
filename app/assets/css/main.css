@@ -1,0 +1,136 @@
+:root {
+  /* Brand palette — Skin Fluent by Nicole (website brief, June 2026) */
+  --color-navy: #1b2a4a;
+  --color-deep-purple: #3d2b6e;
+  --color-mid-purple: #6b5b9e;
+  --color-periwinkle: #8fa7d4;
+  --color-powder-blue: #c8d8ef;
+  --color-pale-lavender: #e4dff5;
+  --color-misty-blue: #dde6f4;
+  --color-pale-purple: #ede8f8;
+  --color-cream: #fbf8f2;
+  --color-sage: #5a8c52;
+  --color-sage-bg: #eef4ed;
+  --color-dusty: #a8bdd8;
+  --color-gray: #b8b4cc;
+  --color-white: #fff;
+  --color-ink: #1b2a4a;
+  --color-mute: #8a8499;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+
+  --max-width: 1120px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-cream);
+  color: var(--color-ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--color-navy);
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 14px 32px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--color-sage);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background: #4a7743;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+}
+
+.btn-outline:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+.btn-outline-light {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: var(--color-white);
+}
+
+.btn-outline-light:hover {
+  background: var(--color-white);
+  color: var(--color-navy);
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--color-sage);
+  margin-bottom: 8px;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+}

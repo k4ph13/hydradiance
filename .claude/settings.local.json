@@ -1,13 +1,29 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx nuxi@latest init . --packageManager npm --no-install)",
-      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install)",
-      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force)",
-      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force --no-gitInit)",
-      "Bash(npx nuxi@latest init . --template minimal --packageManager npm --no-install --force --no-gitInit --no-modules)",
-      "Bash(npm install:*)",
-      "Bash(timeout 20 npm run dev)"
+      "Bash(npm -v)",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Skill(run)",
+      "Bash(nohup npm run dev)",
+      "Bash(disown)",
+      "Bash(curl -sf http://localhost:3000)",
+      "Bash(break)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -sf http://localhost:3000 -o /tmp/home.html -w \"%{http_code}\\\\n\")",
+      "Read(//tmp/**)",
+      "Bash(chromium-cli --help)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3000/services)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx --yes playwright screenshot --browser=chromium --viewport-size=1280,900 http://localhost:3000/ /private/tmp/claude-501/-Users-pixie-hydradiance/18c1896b-28a1-4648-b1f9-f27c437f77a1/scratchpad/home.png)",
+      "Bash(npx --yes playwright install chromium)",
+      "Bash(npx playwright *)",
+      "Bash(npm run *)",
+      "Bash(node *)",
+      "Bash(lsof -ti:3000 -sTCP:LISTEN)",
+      "Bash(xargs -r kill)",
+      "Bash(git add *)"
     ]
   }
 }

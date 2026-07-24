@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skin Fluent by Nicole — Website Brief</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B2A4A; --dpurple:#3D2B6E; --mpurple:#6B5B9E;
+  --peri:#8FA7D4; --powder:#C8D8EF; --pallav:#E4DFF5;
+  --misty:#DDE6F4; --palpurp:#EDE8F8; --cream:#FBF8F2;
+  --sage:#5A8C52; --sage-bg:#EEF4ED; --dusty:#A8BDD8;
+  --gray:#B8B4CC; --white:#fff; --ink:#1B2A4A; --mute:#8a8499;
+}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--ink);
+  -webkit-font-smoothing:antialiased;line-height:1.7}
+
+/* Header */
+.site-header{background:var(--navy);padding:32px 48px;
+  display:flex;align-items:center;justify-content:space-between}
+.brand{font-family:'Cormorant Garamond',serif;font-size:24px;
+  font-weight:400;color:var(--white)}
+.brand span{font-style:italic;color:var(--powder);font-size:14px;
+  display:block;font-family:'Jost',sans-serif;font-weight:300;margin-top:2px}
+.sage-bar{height:4px;background:var(--sage)}
+
+/* Layout */
+.container{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+.brief-title{font-family:'Cormorant Garamond',serif;font-size:38px;
+  font-weight:300;color:var(--navy);margin-bottom:6px}
+.brief-sub{font-family:'Jost',sans-serif;font-size:13px;font-weight:300;
+  color:var(--mute);margin-bottom:48px}
+
+/* Sections */
+.section{margin-bottom:52px}
+.section-label{font-size:9px;letter-spacing:4px;text-transform:uppercase;
+  font-weight:600;color:var(--sage);margin-bottom:6px}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:26px;
+  font-weight:400;color:var(--navy);margin-bottom:16px}
+.section-body{font-size:14px;font-weight:300;color:var(--ink);
+  line-height:1.8;margin-bottom:16px}
+
+/* Cards */
+.card{background:var(--white);border-radius:12px;padding:24px 28px;
+  margin-bottom:16px;border-left:4px solid var(--peri)}
+.card.sage{border-left-color:var(--sage);background:var(--sage-bg)}
+.card.purple{border-left-color:var(--mpurple);background:var(--palpurp)}
+.card.navy{border-left-color:var(--navy);background:var(--misty)}
+.card-title{font-weight:600;font-size:14px;color:var(--navy);margin-bottom:6px}
+.card-body{font-size:13px;font-weight:300;color:var(--ink);line-height:1.7}
+.card-body code{background:var(--pallav);padding:2px 6px;border-radius:4px;
+  font-size:11px;font-family:monospace;color:var(--dpurple)}
+
+/* Color swatches */
+.swatches{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.swatch{width:80px;text-align:center}
+.swatch-box{width:80px;height:52px;border-radius:8px;margin-bottom:6px;
+  border:1px solid rgba(0,0,0,0.06)}
+.swatch-name{font-size:10px;font-weight:500;color:var(--navy)}
+.swatch-hex{font-size:10px;font-weight:300;color:var(--mute);font-family:monospace}
+
+/* Pages grid */
+.pages-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.page-card{background:var(--white);border-radius:10px;padding:20px 22px;
+  border-top:3px solid var(--peri)}
+.page-card.priority{border-top-color:var(--sage)}
+.page-num{font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--mute);font-weight:600;margin-bottom:4px}
+.page-name{font-weight:600;font-size:15px;color:var(--navy);margin-bottom:6px}
+.page-desc{font-size:12.5px;font-weight:300;color:var(--mute);line-height:1.6}
+
+/* Funnel diagram */
+.funnel{margin:20px 0}
+.funnel-step{display:flex;align-items:flex-start;gap:16px;margin-bottom:12px}
+.funnel-num{width:28px;height:28px;border-radius:50%;background:var(--navy);
+  color:var(--white);font-size:11px;font-weight:600;display:flex;
+  align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.funnel-content{flex:1}
+.funnel-title{font-weight:600;font-size:14px;color:var(--navy)}
+.funnel-desc{font-size:13px;font-weight:300;color:var(--mute);margin-top:2px}
+.funnel-arrow{text-align:center;color:var(--sage);font-size:18px;margin:4px 0 4px 22px}
+
+/* Table */
+.brief-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+.brief-table th{background:var(--navy);color:var(--white);
+  padding:10px 14px;text-align:left;font-weight:600;font-size:12px}
+.brief-table td{padding:10px 14px;border-bottom:1px solid var(--pallav);
+  font-weight:300;vertical-align:top}
+.brief-table tr:nth-child(even) td{background:var(--pallav)}
+.brief-table tr:nth-child(odd) td{background:var(--white)}
+.brief-table td:first-child{font-weight:600;color:var(--navy);white-space:nowrap}
+
+/* Divider */
+.divider{height:1px;background:linear-gradient(to right,var(--peri),transparent);
+  margin:48px 0}
+
+@media(max-width:640px){
+  .pages-grid{grid-template-columns:1fr}
+  .container{padding:32px 20px}
+  .site-header{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">Skin Fluent by Nicole<span>Website Brief — For Development</span></div>
+</header>
+<div class="sage-bar"></div>
+
+<div class="container">
+  <h1 class="brief-title">Website Brief</h1>
+  <p class="brief-sub">Everything you need to build skinfluent.com · Last updated June 2026</p>
+
+  <!-- BRAND IDENTITY -->
+  <div class="section">
+    <div class="section-label">01 · Brand Identity</div>
+    <h2 class="section-title">Who Skin Fluent Is</h2>
+    <p class="section-body">Skin Fluent by Nicole is a virtual skin coaching brand founded by Nicole, a licensed advanced esthetician with nearly 20 years of experience including 15+ years at Caesars Palace Qua Baths & Spa in Las Vegas. The brand is built around one idea: that your skin has a language, and with the right guidance, you can learn to speak it.</p>
+    <p class="section-body">The tone is expert but warm — like a brilliant friend who happens to be a skincare professional. Not clinical, not spa-fluffy. Authoritative and accessible. Think: clean, structured, slightly luxurious.</p>
+
+    <div class="card sage">
+      <div class="card-title">Tagline</div>
+      <div class="card-body" style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;font-style:italic;color:var(--navy)">
+        "Become fluent in your skin."
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Typography</div>
+      <div class="card-body">
+        <strong>Display / Headlines:</strong> Cormorant Garamond (Google Fonts) — weights 300, 400, 500; regular and italic<br>
+        <strong>Body / UI:</strong> Jost (Google Fonts) — weights 200, 300, 400, 500, 600<br>
+        Both are free on Google Fonts. Import both before any other styles.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Color Palette — Use These Exact Values</div>
+      <div class="card-body">
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-box" style="background:#1B2A4A"></div><div class="swatch-name">Navy</div><div class="swatch-hex">#1B2A4A</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#3D2B6E"></div><div class="swatch-name">Deep Purple</div><div class="swatch-hex">#3D2B6E</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#6B5B9E"></div><div class="swatch-name">Mid Purple</div><div class="swatch-hex">#6B5B9E</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#8FA7D4"></div><div class="swatch-name">Periwinkle</div><div class="swatch-hex">#8FA7D4</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#C8D8EF"></div><div class="swatch-name">Powder Blue</div><div class="swatch-hex">#C8D8EF</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#E4DFF5"></div><div class="swatch-name">Pale Lavender</div><div class="swatch-hex">#E4DFF5</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#DDE6F4"></div><div class="swatch-name">Misty Blue</div><div class="swatch-hex">#DDE6F4</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#EDE8F8"></div><div class="swatch-name">Pale Purple</div><div class="swatch-hex">#EDE8F8</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#FBF8F2"></div><div class="swatch-name">Linen Cream</div><div class="swatch-hex">#FBF8F2</div></div>
+          <div class="swatch"><div class="swatch-box" style="background:#5A8C52"></div><div class="swatch-name">Deep Sage</div><div class="swatch-hex">#5A8C52</div></div>
+        </div>
+        <strong>Usage rules:</strong> Navy is the primary anchor (headers, nav, dark sections). Purple family handles section accents and highlights. Sage is the accent color — use sparingly on CTAs, dividers, pip marks. Cream is the page background. NO gold. NO hot pink as a primary color (pink lives in the logo only).
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Logo</div>
+      <div class="card-body">
+        Soft pink lotus with vertical dotted line and "SF" monogram. Currently in PNG form — a vector version is pending. Use the PNG at high resolution for now. The pink in the logo is intentional and does NOT need to appear anywhere else on the site. Do not pull pink from the logo into the site palette.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CLIENT FUNNEL -->
+  <div class="section">
+    <div class="section-label">02 · Client Funnel</div>
+    <h2 class="section-title">How Visitors Become Clients</h2>
+    <p class="section-body">The entire funnel flows from the quiz. Everything on the site should gently point toward taking it.</p>
+
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="funnel-num">1</div>
+        <div class="funnel-content">
+          <div class="funnel-title">Visitor lands on site</div>
+          <div class="funnel-desc">From Instagram, Google, or referral. First impression matters — the site needs to feel authoritative and warm within 3 seconds.</div>
+        </div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-num">2</div>
+        <div class="funnel-content">
+          <div class="funnel-title">Takes the free skin quiz</div>
+          <div class="funnel-desc">8 questions. Results shown on-screen immediately. Email captured to receive their personalized PDF guide. Quiz is built — just needs to be embedded.</div>
+        </div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-num">3</div>
+        <div class="funnel-content">
+          <div class="funnel-title">Receives free profile guide</div>
+          <div class="funnel-desc">Sent via email immediately after sign-up. 4-page PDF tailored to their skin profile. Includes Nicole's personal note and coaching CTA.</div>
+        </div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-num">4</div>
+        <div class="funnel-content">
+          <div class="funnel-title">Books a consultation or Journey</div>
+          <div class="funnel-desc">The Consultation ($97–125, 45 min) or The Transformation Journey ($297–397, 12 weeks). Booking handled via scheduling link.</div>
+        </div>
+      </div>
+      <div class="funnel-arrow">↓</div>
+      <div class="funnel-step">
+        <div class="funnel-num">5</div>
+        <div class="funnel-content">
+          <div class="funnel-title">Shops Nicole's Pomp store</div>
+          <div class="funnel-desc">Products recommended during coaching available at <code>tiny.pompbeauty.com/nicole4</code>. Clinical-grade brands, 30% commission, ships directly to client.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PAGES -->
+  <div class="section">
+    <div class="section-label">03 · Pages Needed</div>
+    <h2 class="section-title">Site Structure</h2>
+    <p class="section-body">Start with these 6 pages. Everything else can be added later.</p>
+
+    <div class="pages-grid">
+      <div class="page-card priority">
+        <div class="page-num">Page 01 · Priority</div>
+        <div class="page-name">Home</div>
+        <div class="page-desc">Hero with tagline + quiz CTA. Brief "who Nicole is" section. Services overview (3 cards). Social proof / trust signals. Second quiz CTA. Keep it clean — the quiz is the goal.</div>
+      </div>
+      <div class="page-card priority">
+        <div class="page-num">Page 02 · Priority</div>
+        <div class="page-name">Skin Quiz</div>
+        <div class="page-desc">Embed the quiz HTML file directly. Full-page experience. Results show on-screen, email capture after. No other nav elements while quiz is active — reduce drop-off.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-num">Page 03</div>
+        <div class="page-name">Services</div>
+        <div class="page-desc">The Consultation, The Transformation Journey, and Membership. Each with what's included, pricing, and booking CTA. Clear comparison so visitors self-select.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-num">Page 04</div>
+        <div class="page-name">About Nicole</div>
+        <div class="page-desc">Nicole's full bio, Caesars Palace background, philosophy of care. Professional photo. Warm, personal, authoritative. This is where trust is built for visitors who need more before booking.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-num">Page 05</div>
+        <div class="page-name">Shop</div>
+        <div class="page-desc">Simple page with a short intro ("Nicole personally curates these products...") and a prominent link to <code>tiny.pompbeauty.com/nicole4</code>. No need to build a shop — Pomp handles it.</div>
+      </div>
+      <div class="page-card">
+        <div class="page-num">Page 06</div>
+        <div class="page-name">Contact</div>
+        <div class="page-desc">Simple contact form or direct email. Business hours / response time. Link to booking. Keep it short — most leads will come through the quiz funnel, not a contact form.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- QUIZ EMBED -->
+  <div class="section">
+    <div class="section-label">04 · Quiz Integration</div>
+    <h2 class="section-title">Embedding the Skin Quiz</h2>
+    <p class="section-body">The quiz is a self-contained HTML file (<code>skinfluent_quiz_v4.html</code>). It has all CSS and JS embedded — no external dependencies except Google Fonts.</p>
+
+    <div class="card sage">
+      <div class="card-title">Option A — Dedicated Page (Recommended)</div>
+      <div class="card-body">
+        Host the quiz HTML file at <code>/quiz</code> or <code>/skin-quiz</code>. This gives it a full-page experience with no nav distractions, which increases completion rates. The file can be served directly or its contents placed inside a minimal wrapper page.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Option B — iFrame Embed</div>
+      <div class="card-body">
+        Embed using an iFrame on any page: <code>&lt;iframe src="/quiz.html" width="100%" height="800px" frameborder="0"&gt;&lt;/iframe&gt;</code>. Adjust height as needed. Works but full-page is better for mobile.
+      </div>
+    </div>
+
+    <div class="card navy">
+      <div class="card-title">Email Platform Connection</div>
+      <div class="card-body">
+        The quiz captures emails via a <code>submitEmail(email, profileKey)</code> function at the bottom of the HTML file. Wire this to your email platform's API (ConvertKit, Flodesk, or Mailchimp):<br><br>
+        <strong>ConvertKit:</strong> POST to <code>https://api.convertkit.com/v3/forms/{form_id}/subscribe</code> with email + tag matching profile key<br>
+        <strong>Flodesk:</strong> POST to Flodesk API with segment matching profile key<br>
+        <strong>Mailchimp:</strong> POST to Mailchimp API with tag matching profile key<br><br>
+        Profile keys: <code>dry</code> · <code>oily</code> · <code>sensitive</code> · <code>acne</code> · <code>pigment</code> · <code>aging</code> · <code>rosacea</code><br>
+        Each key triggers the matching delivery email with the correct PDF attached or linked.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES + PRICING -->
+  <div class="section">
+    <div class="section-label">05 · Services & Pricing</div>
+    <h2 class="section-title">What Nicole Offers</h2>
+
+    <table class="brief-table">
+      <tr><th>Service</th><th>What's Included</th><th>Price</th><th>Booking</th></tr>
+      <tr>
+        <td>The Consultation</td>
+        <td>45-min virtual call · personalized routine · full coaching packet · product recommendations</td>
+        <td>$97–$125</td>
+        <td>Scheduling link</td>
+      </tr>
+      <tr>
+        <td>The Transformation Journey</td>
+        <td>Foundation Call (Wk 1) · Check-ins (Wk 3, 6, 9) · Graduation Review (Wk 12) · 12-week workbook · coaching packet · graduation summary</td>
+        <td>$297–$397</td>
+        <td>Scheduling link</td>
+      </tr>
+      <tr>
+        <td>Membership</td>
+        <td>Monthly check-in · routine adjustments · seasonal updates · for Journey graduates</td>
+        <td>$47–$67/mo</td>
+        <td>Scheduling link</td>
+      </tr>
+      <tr>
+        <td>Free Quiz + Guide</td>
+        <td>8-question skin quiz · on-screen results · personalized 4-page PDF guide emailed immediately</td>
+        <td>Free</td>
+        <td>Quiz page</td>
+      </tr>
+      <tr>
+        <td>Product Shop</td>
+        <td>Curated professional products via Pomp Beauty storefront</td>
+        <td>Varies</td>
+        <td>tiny.pompbeauty.com/nicole4</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TECHNICAL NOTES -->
+  <div class="section">
+    <div class="section-label">06 · Technical Notes</div>
+    <h2 class="section-title">For the Developer</h2>
+
+    <div class="card">
+      <div class="card-title">Files Delivered</div>
+      <div class="card-body">
+        <code>skinfluent_quiz_v4.html</code> — The skin quiz (self-contained, ready to deploy)<br>
+        <code>sf_profile_[key].pdf</code> — 7 free profile guides (one per skin type)<br>
+        <code>sf_delivery_email_all7.html</code> — All 7 delivery email templates (reference doc)<br>
+        All PDFs are final and print-ready at letter size (8.5×11").
+      </div>
+    </div>
+
+    <div class="card sage">
+      <div class="card-title">Domain & Branding</div>
+      <div class="card-body">
+        Brand: <strong>Skin Fluent by Nicole</strong><br>
+        Target domain: <strong>skinfluent.com</strong><br>
+        Pomp store: <strong>tiny.pompbeauty.com/nicole4</strong><br>
+        Social: Instagram primary channel (handle TBD)
+      </div>
+    </div>
+
+    <div class="card purple">
+      <div class="card-title">Performance & Mobile</div>
+      <div class="card-body">
+        Nicole's audience is primarily mobile. Optimize for mobile-first. The quiz especially needs to feel smooth on phone — test on iOS Safari. Page speed matters for conversion — compress images, lazy-load below the fold. The quiz HTML file is already optimized and mobile-responsive.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">What Nicole Will Handle Separately</div>
+      <div class="card-body">
+        · Email platform setup (ConvertKit / Flodesk / Mailchimp) and automation<br>
+        · Scheduling link (Calendly, Acuity, or similar)<br>
+        · PDF hosting (can be hosted on the site or in cloud storage)<br>
+        · Payment processing (Stripe, Square, or through scheduling platform)<br>
+        · Instagram content and social links<br>
+        · Logo vectorization (in progress — PNG available now)
+      </div>
+    </div>
+
+    <div class="card navy">
+      <div class="card-title">Legal Pages Needed</div>
+      <div class="card-body">
+        · Privacy Policy (required for email capture)<br>
+        · Terms of Service<br>
+        · Disclaimer (coaching is not medical advice — language provided in all PDFs already)<br>
+        Use a generator like Termly or Iubenda for the first two. Nicole to review before publishing.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT TONE -->
+  <div class="section">
+    <div class="section-label">07 · Copy & Tone</div>
+    <h2 class="section-title">How the Site Should Sound</h2>
+    <p class="section-body">Every word on the site should sound like Nicole — knowledgeable, warm, direct, and never condescending. Here are a few principles to guide any copy written for the site:</p>
+
+    <div class="card sage">
+      <div class="card-title">✓ Do this</div>
+      <div class="card-body">
+        Speak directly to the reader's frustration ("You've tried everything. Your skin still isn't cooperating.")<br>
+        Use specific, confident language ("8–12 weeks of consistency")<br>
+        Position Nicole as a trusted expert, not a salesperson<br>
+        Lead with the client's transformation, not Nicole's credentials<br>
+        Use "your skin" language throughout — personalized, not generic
+      </div>
+    </div>
+
+    <div class="card purple">
+      <div class="card-title">✗ Avoid this</div>
+      <div class="card-body">
+        Vague wellness language ("glow up," "skin journey," "radiant you")<br>
+        Overpromising results ("guaranteed clear skin in 30 days")<br>
+        Spa-fluffy tone that undersells the clinical expertise<br>
+        Listing Nicole's credentials before establishing the client's problem<br>
+        Using "I" before "you" — the site is for the reader, not about Nicole
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER NOTE -->
+  <div style="background:var(--navy);border-radius:16px;padding:28px 32px;margin-top:16px">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;
+      font-style:italic;color:var(--white);margin-bottom:8px">
+      Questions about this brief?
+    </p>
+    <p style="font-size:13px;font-weight:300;color:var(--powder);line-height:1.7">
+      Everything in this document reflects decisions Nicole has approved. 
+      The quiz, PDFs, and email templates are finalized and ready to integrate. 
+      When in doubt about design direction, refer to the color palette and typography above — 
+      they are locked. Reach Nicole at skinfluent.com for anything else.
+    </p>
+    <p style="font-size:11px;font-weight:300;color:var(--gray);margin-top:12px">
+      Skin Fluent by Nicole · skinfluent.com · tiny.pompbeauty.com/nicole4
+    </p>
+  </div>
+
+</div>
+</body>
+</html>
