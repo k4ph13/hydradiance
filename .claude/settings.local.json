@@ -23,7 +23,20 @@
       "Bash(node *)",
       "Bash(lsof -ti:3000 -sTCP:LISTEN)",
       "Bash(xargs -r kill)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh auth *)",
+      "Bash(env)",
+      "Bash(NUXT_APP_BASE_URL=/hydradiance/ npm run generate)",
+      "Bash(git commit *)",
+      "Bash(git fetch *)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(ssh-add -l)",
+      "Bash(ssh -T -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes git@github.com)",
+      "Bash(ssh-keygen *)",
+      "Bash(ssh -vT -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes git@github.com)",
+      "Bash(git checkout *)",
+      "Bash(git merge *)"
     ]
   }
 }
