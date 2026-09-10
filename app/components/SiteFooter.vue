@@ -22,6 +22,12 @@ const year = new Date().getFullYear()
         <p class="copyright">&copy; {{ year }} Skin Fluent by Nicole</p>
       </div>
     </div>
+
+    <div class="container legal-row">
+      <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+      <NuxtLink to="/terms">Terms of Service</NuxtLink>
+      <NuxtLink to="/disclaimer">Disclaimer</NuxtLink>
+    </div>
   </footer>
 </template>
 
@@ -76,6 +82,25 @@ nav a:hover,
 .copyright {
   color: var(--color-mute);
   font-size: 12px;
+}
+
+.legal-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.legal-row a {
+  color: var(--color-mute);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.legal-row a:hover {
+  color: var(--color-white);
 }
 
 @media (max-width: 720px) {
