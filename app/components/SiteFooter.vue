@@ -19,9 +19,6 @@ const year = new Date().getFullYear()
       </nav>
 
       <div class="meta">
-        <a href="https://tiny.pompbeauty.com/nicole7849_store" target="_blank" rel="noopener">
-          tiny.pompbeauty.com/nicole7849_store
-        </a>
         <p class="copyright">&copy; {{ year }} Skin Fluent by Nicole</p>
       </div>
     </div>
