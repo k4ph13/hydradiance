@@ -107,7 +107,7 @@ const services = [
 }
 
 .lede {
-  color: var(--color-powder-blue);
+  color: var(--color-periwinkle);
   font-size: 16px;
   font-weight: 300;
   max-width: 560px;

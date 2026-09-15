@@ -111,7 +111,7 @@ const services = [
 }
 
 .hero-copy {
-  color: var(--color-powder-blue);
+  color: var(--color-periwinkle);
   font-size: 17px;
   font-weight: 300;
   margin-bottom: 36px;

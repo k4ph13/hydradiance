@@ -48,7 +48,7 @@ const year = new Date().getFullYear()
 .tagline {
   font-family: var(--font-display);
   font-style: italic;
-  color: var(--color-powder-blue);
+  color: var(--color-periwinkle);
   margin-top: 16px;
   font-size: 15px;
 }
@@ -62,7 +62,7 @@ nav {
 
 nav a,
 .meta a {
-  color: var(--color-misty-blue);
+  color: var(--color-periwinkle);
   text-decoration: none;
 }
 
