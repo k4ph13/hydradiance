@@ -83,7 +83,7 @@ function closeMenu() {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--color-powder-blue);
+  color: var(--color-periwinkle);
   transition: color 0.15s ease;
 }
 
