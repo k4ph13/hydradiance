@@ -29,31 +29,51 @@ const services = [
 <template>
   <div>
     <section class="hero">
-      <div class="container hero-inner">
-        <p class="section-label">Virtual Skin Coaching</p>
-        <h1>Become fluent in your skin.</h1>
-        <p class="hero-copy">
-          You've tried everything. Your skin still isn't cooperating. Nicole reads skin the way
-          a translator reads language — and she'll teach you to do the same, so every product
-          and habit you choose actually makes sense for your skin.
-        </p>
-        <div class="hero-actions">
-          <NuxtLink to="/quiz" class="btn btn-primary">Take the Free Skin Quiz</NuxtLink>
-          <NuxtLink to="/services" class="btn btn-outline-light">View Services</NuxtLink>
+      <div class="container">
+        <div class="hero-inner">
+          <p class="section-label">Virtual Skin Coaching</p>
+          <h1>Become fluent in your skin.</h1>
+          <p class="hero-copy">
+            You've tried everything. Your skin still isn't cooperating. Nicole reads skin the way
+            a translator reads language — and she'll teach you to do the same, so every product
+            and habit you choose actually makes sense for your skin.
+          </p>
+          <div class="hero-actions">
+            <NuxtLink to="/quiz" class="btn btn-primary">Take the Free Skin Quiz</NuxtLink>
+            <NuxtLink to="/services" class="btn btn-outline-light">View Services</NuxtLink>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="container intro">
-      <p class="section-label">Who's Guiding You</p>
-      <h2>Nearly 20 years reading skin, so you don't have to guess.</h2>
-      <p class="intro-copy">
-        Nicole is a licensed advanced esthetician, including 15+ years at Caesars Palace Qua
-        Baths &amp; Spa in Las Vegas. She built Skin Fluent to bring that same level of care to
-        anyone, anywhere — no guesswork, no overwhelming aisle of products, just a clear plan
-        for the skin you're in.
-      </p>
-      <NuxtLink to="/about" class="text-link">More about Nicole →</NuxtLink>
+    <section class="intro-section">
+      <div class="container">
+        <div class="intro">
+          <p class="section-label">Who's Guiding You</p>
+          <h2>Nearly 20 years reading skin, so you don't have to guess.</h2>
+          <p class="intro-copy">
+            Nicole is a licensed advanced esthetician, including 15+ years at Caesars Palace Qua
+            Baths &amp; Spa in Las Vegas. She built Skin Fluent to bring that same level of care
+            to anyone, anywhere — no guesswork, no overwhelming aisle of products, just a clear
+            plan for the skin you're in.
+          </p>
+          <div class="trust-grid">
+            <div>
+              <p class="trust-number">20</p>
+              <p class="trust-label">Years in the treatment room</p>
+            </div>
+            <div>
+              <p class="trust-number">15+</p>
+              <p class="trust-label">Years at Caesars Palace Qua Baths &amp; Spa</p>
+            </div>
+            <div>
+              <p class="trust-number">7</p>
+              <p class="trust-label">Skin profiles, each with its own coaching path</p>
+            </div>
+          </div>
+          <NuxtLink to="/about" class="text-link">More about Nicole →</NuxtLink>
+        </div>
+      </div>
     </section>
 
     <section class="services-section">
@@ -79,23 +99,6 @@ const services = [
       </div>
     </section>
 
-    <section class="container trust">
-      <div class="trust-grid">
-        <div>
-          <p class="trust-number">20</p>
-          <p class="trust-label">Years in the treatment room</p>
-        </div>
-        <div>
-          <p class="trust-number">15+</p>
-          <p class="trust-label">Years at Caesars Palace Qua Baths &amp; Spa</p>
-        </div>
-        <div>
-          <p class="trust-number">7</p>
-          <p class="trust-label">Skin profiles, each with its own coaching path</p>
-        </div>
-      </div>
-    </section>
-
     <section class="cta-band">
       <div class="container cta-inner">
         <h2>Not sure where to start?</h2>
@@ -114,6 +117,7 @@ const services = [
 
 .hero-inner {
   max-width: 720px;
+  margin: 0 auto;
 }
 
 .hero h1 {
@@ -136,9 +140,13 @@ const services = [
   flex-wrap: wrap;
 }
 
+.intro-section {
+  padding: 88px 0;
+}
+
 .intro {
-  padding: 88px 24px;
   max-width: 760px;
+  margin: 0 auto;
 }
 
 .intro h2 {
@@ -267,15 +275,15 @@ const services = [
   transition: transform 0.18s ease;
 }
 
-.trust {
-  padding: 80px 24px;
-}
-
 .trust-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
   text-align: center;
+  margin: 8px 0 32px;
+  padding: 28px 0;
+  border-top: 1px solid var(--color-pale-purple);
+  border-bottom: 1px solid var(--color-pale-purple);
 }
 
 .trust-number {

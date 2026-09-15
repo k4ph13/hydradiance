@@ -1,15 +1,10 @@
 <template>
   <div class="quiz-page">
-    <header class="quiz-header">
-      <div class="container">
-        <NuxtLink to="/" aria-label="Skin Fluent home">
-          <BrandMark theme="dark" />
-        </NuxtLink>
-      </div>
-    </header>
+    <SiteHeader />
     <main>
       <slot />
     </main>
+    <SiteFooter />
   </div>
 </template>
 
@@ -18,11 +13,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-.quiz-header {
-  background: var(--color-navy);
-  padding: 20px 0;
 }
 
 main {
