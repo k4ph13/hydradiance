@@ -5,8 +5,9 @@ useHead({
 
 const services = [
   {
+    slug: 'consultation',
     name: 'The Consultation',
-    price: '$97–$125',
+    price: '$97',
     cadence: 'One 45-minute virtual call',
     best: 'Best for a single expert read on your skin, right now.',
     includes: [
@@ -17,8 +18,9 @@ const services = [
     ],
   },
   {
+    slug: 'transformation-journey',
     name: 'The Transformation Journey',
-    price: '$297–$397',
+    price: '$297',
     cadence: '12 weeks of guided coaching',
     best: 'Best for lasting change — most skin concerns need consistency, not a single fix.',
     includes: [
@@ -31,8 +33,9 @@ const services = [
     featured: true,
   },
   {
+    slug: 'membership',
     name: 'Membership',
-    price: '$47–$67/mo',
+    price: '$47/mo',
     cadence: 'Ongoing, for Journey graduates',
     best: 'Best for keeping progress on track after the Journey ends.',
     includes: [
@@ -60,11 +63,13 @@ const services = [
     <section class="container services-list">
       <div
         v-for="service in services"
+        :id="service.slug"
         :key="service.name"
         class="service-row"
         :class="{ featured: service.featured }"
       >
         <div class="service-main">
+          <span v-if="service.featured" class="badge">Best for Lasting Results</span>
           <h2>{{ service.name }}</h2>
           <p class="cadence">{{ service.cadence }}</p>
           <p class="best">{{ service.best }}</p>
@@ -73,7 +78,10 @@ const services = [
           </ul>
         </div>
         <div class="service-side">
-          <p class="price">{{ service.price }}</p>
+          <div class="price-block">
+            <p class="price-label">Starting at</p>
+            <p class="price">{{ service.price }}</p>
+          </div>
           <a href="#booking" class="btn btn-primary">Book Now</a>
         </div>
       </div>
@@ -128,11 +136,37 @@ const services = [
   border-radius: 16px;
   padding: 32px;
   border: 1px solid var(--color-pale-lavender);
+  scroll-margin-top: 24px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.service-row:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(27, 42, 74, 0.1);
+  border-color: var(--color-periwinkle);
 }
 
 .service-row.featured {
   background: var(--color-sage-bg);
   border-color: var(--color-sage);
+}
+
+.service-row.featured:hover {
+  border-color: var(--color-sage);
+  box-shadow: 0 16px 36px rgba(90, 140, 82, 0.16);
+}
+
+.badge {
+  display: inline-block;
+  background: var(--color-sage);
+  color: var(--color-white);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 12px;
 }
 
 .service-main h2 {
@@ -189,6 +223,20 @@ const services = [
   gap: 14px;
 }
 
+.price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.price-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-mute);
+  margin-bottom: 2px;
+}
+
 .price {
   font-family: var(--font-display);
   font-size: 26px;
@@ -227,6 +275,9 @@ const services = [
   .service-side {
     align-items: flex-start;
     text-align: left;
+  }
+  .price-block {
+    align-items: flex-start;
   }
 }
 </style>
