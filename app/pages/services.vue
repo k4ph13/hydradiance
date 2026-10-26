@@ -3,6 +3,24 @@ useHead({
   title: 'Services & Pricing — Skin Fluent by Nicole',
 })
 
+/* ============================================================
+   BOOKING / PAYMENT LINKS
+   ------------------------------------------------------------
+   Fill in `bookingUrl` once Nicole picks a scheduling/payment
+   platform (Acuity, Square Appointments, Squarespace Scheduling,
+   etc.). Paste the direct booking link for that service below.
+   Until a service's `bookingUrl` is filled in, its "Book Now"
+   button falls back to the #booking note at the bottom of this
+   page — safe to leave live while the platform is being set up.
+
+   Note: Consultation and Transformation Journey are one-time
+   paid bookings — most scheduling platforms handle those fine.
+   Membership is $47/MONTH, recurring. Not every scheduling
+   platform bills recurring subscriptions natively — if Nicole's
+   platform doesn't, membership may need its own link instead
+   (e.g. a Stripe Payment Link, or that platform's subscription/
+   membership product), separate from the one-time booking link.
+   ============================================================ */
 const services = [
   {
     slug: 'consultation',
@@ -16,6 +34,7 @@ const services = [
       'Full coaching packet to keep',
       'Product recommendations',
     ],
+    bookingUrl: '',
   },
   {
     slug: 'transformation-journey',
@@ -31,6 +50,7 @@ const services = [
       'Full coaching packet + graduation summary',
     ],
     featured: true,
+    bookingUrl: '',
   },
   {
     slug: 'membership',
@@ -43,6 +63,7 @@ const services = [
       'Routine adjustments as your skin changes',
       'Seasonal updates',
     ],
+    bookingUrl: '', // recurring — see note above, this may differ from the links above
   },
 ]
 </script>
@@ -82,7 +103,14 @@ const services = [
             <p class="price-label">Starting at</p>
             <p class="price">{{ service.price }}</p>
           </div>
-          <a href="#booking" class="btn btn-primary">Book Now</a>
+          <a
+            :href="service.bookingUrl || '#booking'"
+            :target="service.bookingUrl ? '_blank' : undefined"
+            :rel="service.bookingUrl ? 'noopener' : undefined"
+            class="btn btn-primary"
+          >
+            {{ service.slug === 'membership' ? 'Join Membership' : 'Book Now' }}
+          </a>
         </div>
       </div>
     </section>
