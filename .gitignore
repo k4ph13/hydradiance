@@ -28,3 +28,6 @@ npm-debug.log*
 
 # Local reference docs (not part of the app)
 project docs/
+
+# Headshot drafts under review — not part of the app until one is chosen
+headshots/
