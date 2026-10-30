@@ -80,8 +80,8 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
 .about-body {
   padding: 72px 24px;
   display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 48px;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
   align-items: start;
 }
 
@@ -126,7 +126,7 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
     grid-template-columns: 1fr;
   }
   .photo {
-    max-width: 280px;
+    max-width: 220px;
   }
 }
 </style>
