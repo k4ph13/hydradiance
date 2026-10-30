@@ -25,7 +25,7 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
         :src="photoSrc"
         alt="Portrait of Nicole, licensed advanced esthetician and founder of Skin Fluent"
         width="640"
-        height="800"
+        height="640"
       >
 
 
@@ -92,8 +92,6 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  /* Square crop trims from the bottom (blazer) so the head stays intact. */
-  object-position: center top;
   border-radius: 16px;
   background: var(--color-pale-purple);
 }
