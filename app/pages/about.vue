@@ -2,6 +2,12 @@
 useHead({
   title: 'About Nicole — Skin Fluent',
 })
+
+// GitHub Pages serves this site under /<repo-name>/, so public/ assets need
+// the configured base URL prefixed — same approach as the favicon link in
+// nuxt.config.ts.
+const { app } = useRuntimeConfig()
+const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
 </script>
 
 <template>
@@ -14,9 +20,14 @@ useHead({
     </section>
 
     <section class="container about-body">
-      <div class="photo-placeholder" role="img" aria-label="Photo of Nicole coming soon">
-        <span>Photo pending</span>
-      </div>
+      <img
+        class="photo"
+        :src="photoSrc"
+        alt="Portrait of Nicole, licensed advanced esthetician and founder of Skin Fluent"
+        width="640"
+        height="800"
+      >
+
 
       <div class="copy">
         <p>
@@ -74,15 +85,12 @@ useHead({
   align-items: start;
 }
 
-.photo-placeholder {
+.photo {
+  width: 100%;
   aspect-ratio: 4 / 5;
+  object-fit: cover;
   border-radius: 16px;
   background: var(--color-pale-purple);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-mute);
-  font-size: 13px;
 }
 
 .copy p {
@@ -117,7 +125,7 @@ useHead({
   .about-body {
     grid-template-columns: 1fr;
   }
-  .photo-placeholder {
+  .photo {
     max-width: 280px;
   }
 }
