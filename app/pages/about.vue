@@ -80,15 +80,20 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
 .about-body {
   padding: 72px 24px;
   display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 40px;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
   align-items: start;
 }
 
 .photo {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  /* The width/height attributes would otherwise pin the height at 800px
+     and override aspect-ratio. */
+  height: auto;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
+  /* Square crop trims from the bottom (blazer) so the head stays intact. */
+  object-position: center top;
   border-radius: 16px;
   background: var(--color-pale-purple);
 }
@@ -126,7 +131,7 @@ const photoSrc = `${app.baseURL}images/about-nicole.jpg`.replace('//', '/')
     grid-template-columns: 1fr;
   }
   .photo {
-    max-width: 220px;
+    max-width: 280px;
   }
 }
 </style>
