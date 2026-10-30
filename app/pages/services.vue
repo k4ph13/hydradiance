@@ -3,6 +3,17 @@ useHead({
   title: 'Services & Pricing — Skin Fluent by Nicole',
 })
 
+/* Carries a quiz result onto this page — via ?profile=<slug> when someone
+   clicks through from the result screen, or localStorage when they arrive
+   later via the nav instead. See app/utils/skinProfiles.ts. */
+const route = useRoute()
+const profileSlug = ref<string | null>(null)
+onMounted(() => {
+  const fromQuery = route.query.profile
+  profileSlug.value = typeof fromQuery === 'string' ? fromQuery : recallQuizProfile()
+})
+const activeProfile = computed(() => (profileSlug.value ? SKIN_PROFILES[profileSlug.value] : null))
+
 /* ============================================================
    BOOKING / PAYMENT LINKS
    ------------------------------------------------------------
@@ -81,16 +92,29 @@ const services = [
       </div>
     </section>
 
+    <section v-if="activeProfile" class="container profile-banner">
+      <p>
+        Recommended for your <strong>{{ activeProfile.label }}</strong> result —
+        <NuxtLink to="/quiz">not you? Retake the quiz</NuxtLink>
+      </p>
+    </section>
+
     <section class="container services-list">
       <div
         v-for="service in services"
         :id="service.slug"
         :key="service.name"
         class="service-row"
-        :class="{ featured: service.featured }"
+        :class="{
+          featured: service.featured,
+          recommended: activeProfile?.suggestedService === service.slug,
+        }"
       >
         <div class="service-main">
           <span v-if="service.featured" class="badge">Best for Lasting Results</span>
+          <span v-if="activeProfile?.suggestedService === service.slug" class="badge badge-match">
+            Matches Your Result
+          </span>
           <h2>{{ service.name }}</h2>
           <p class="cadence">{{ service.cadence }}</p>
           <p class="best">{{ service.best }}</p>
@@ -104,7 +128,7 @@ const services = [
             <p class="price">{{ service.price }}</p>
           </div>
           <a
-            :href="service.bookingUrl || '#booking'"
+            :href="withQuizProfileParam(service.bookingUrl, profileSlug) || '#booking'"
             :target="service.bookingUrl ? '_blank' : undefined"
             :rel="service.bookingUrl ? 'noopener' : undefined"
             class="btn btn-primary"
@@ -149,6 +173,24 @@ const services = [
   max-width: 560px;
 }
 
+.profile-banner {
+  padding: 28px 24px 0;
+  text-align: center;
+}
+.profile-banner p {
+  display: inline-block;
+  background: var(--color-sage-bg);
+  color: var(--color-navy);
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+.profile-banner a {
+  color: var(--color-sage);
+  text-decoration: underline;
+}
+
 .services-list {
   padding: 72px 24px;
   display: flex;
@@ -184,6 +226,11 @@ const services = [
   box-shadow: 0 16px 36px rgba(90, 140, 82, 0.16);
 }
 
+.service-row.recommended {
+  border-color: var(--color-mid-purple);
+  box-shadow: 0 0 0 2px var(--color-pale-lavender);
+}
+
 .badge {
   display: inline-block;
   background: var(--color-sage);
@@ -195,6 +242,11 @@ const services = [
   padding: 5px 14px;
   border-radius: 20px;
   margin-bottom: 12px;
+}
+
+.badge-match {
+  background: var(--color-mid-purple);
+  margin-left: 8px;
 }
 
 .service-main h2 {
