@@ -302,6 +302,11 @@ const canNext = computed(() => {
   return answers[q.id] !== undefined
 })
 const profile = computed(() => (resultKey.value ? PROFILES[resultKey.value] : null))
+const recommended = computed(() => (resultKey.value ? SKIN_PROFILES[resultKey.value] : null))
+const servicesHref = computed(() =>
+  resultKey.value ? `/services?profile=${resultKey.value}#${recommended.value?.suggestedService}` : '/services',
+)
+const shopHref = computed(() => (resultKey.value ? `/shop?profile=${resultKey.value}` : '/shop'))
 
 function isSelected(i: number) {
   const q = currentQuestion.value
@@ -364,6 +369,7 @@ function computeResult() {
   })
   resultKey.value = best
   stage.value = 'result'
+  if (best) rememberQuizProfile(best)
 }
 
 function retake() {
@@ -532,8 +538,12 @@ async function submitEmail() {
       </div>
 
       <div class="coach-cta">
-        <p>Want a routine built specifically for <em>you</em>? Book a 1-on-1 virtual consultation with Nicole.</p>
-        <button type="button" class="btn-ghost">Explore Coaching →</button>
+        <h3>Recommended for {{ profile.name }}</h3>
+        <p>Here's where to go next — both pick up with your {{ profile.name }} result already in hand.</p>
+        <div class="coach-actions">
+          <NuxtLink :to="servicesHref" class="btn btn-primary">Book Skin Coaching →</NuxtLink>
+          <NuxtLink :to="shopHref" class="btn btn-ghost">Shop Recommended Products →</NuxtLink>
+        </div>
       </div>
 
       <div class="restart"><button type="button" @click="retake">↺ Retake the quiz</button></div>
@@ -967,11 +977,21 @@ async function submitEmail() {
   padding-top: 24px;
   border-top: 1px solid var(--color-pale-purple);
 }
+.coach-cta h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
 .coach-cta p {
   font-size: 13.5px;
   color: var(--color-mute);
   font-weight: 300;
   margin-bottom: 14px;
+}
+.coach-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 .btn-ghost {
   background: transparent;

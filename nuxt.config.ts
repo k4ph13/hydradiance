@@ -10,7 +10,7 @@ export default defineNuxtConfig({
     baseURL,
     head: {
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: `${baseURL}favicon.ico`.replace('//', '/') },
+        { rel: 'icon', type: 'image/svg+xml', href: `${baseURL}favicon.svg`.replace('//', '/') },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
         { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
         {

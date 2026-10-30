@@ -3,6 +3,19 @@ useHead({
   title: 'Shop — Skin Fluent by Nicole',
 })
 
+/* Carries a quiz result onto this page — via ?profile=<slug> when someone
+   clicks through from the result screen, or localStorage when they arrive
+   later via the nav instead. See app/utils/skinProfiles.ts. Until Nicole
+   maps a recommendedRoutineUrl per profile, this just shows a banner and
+   the existing general routines below — nothing else changes. */
+const route = useRoute()
+const profileSlug = ref<string | null>(null)
+onMounted(() => {
+  const fromQuery = route.query.profile
+  profileSlug.value = typeof fromQuery === 'string' ? fromQuery : recallQuizProfile()
+})
+const activeProfile = computed(() => (profileSlug.value ? SKIN_PROFILES[profileSlug.value] : null))
+
 const fullStoreUrl = 'https://tiny.pompbeauty.com/nicole7849_store'
 
 const routines = [
@@ -35,6 +48,23 @@ const routines = [
       regimens, built for her own dehydrated skin with scattered hyperpigmentation. Start with one
       below, or browse everything she carries.
     </p>
+
+    <p v-if="activeProfile" class="profile-banner">
+      Recommended for your <strong>{{ activeProfile.label }}</strong> result —
+      <NuxtLink to="/quiz">not you? Retake the quiz</NuxtLink>
+    </p>
+
+    <a
+      v-if="activeProfile?.recommendedRoutineUrl"
+      :href="activeProfile.recommendedRoutineUrl"
+      target="_blank"
+      rel="noopener"
+      class="routine-card recommended-card"
+    >
+      <span class="badge-match">Matches Your Result</span>
+      <p class="routine-name">Recommended for {{ activeProfile.label }}</p>
+      <span class="routine-link">Shop this routine →</span>
+    </a>
 
     <div class="routine-grid">
       <a
@@ -82,6 +112,52 @@ h1 {
   font-weight: 300;
   margin: 0 auto 48px;
   max-width: 560px;
+}
+
+.profile-banner {
+  display: inline-block;
+  background: var(--color-sage-bg);
+  color: var(--color-navy);
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 20px;
+  border-radius: 999px;
+  margin: -24px auto 32px;
+}
+.profile-banner a {
+  color: var(--color-sage);
+  text-decoration: underline;
+}
+
+.recommended-card {
+  display: block;
+  text-align: left;
+  background: var(--color-sage-bg);
+  border: 1.5px solid var(--color-sage);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease;
+}
+.recommended-card:hover {
+  transform: translateY(-2px);
+}
+.recommended-card .badge-match {
+  display: inline-block;
+  background: var(--color-mid-purple);
+  color: var(--color-white);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.recommended-card .routine-name {
+  margin-bottom: 4px;
 }
 
 .routine-grid {

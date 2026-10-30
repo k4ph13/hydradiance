@@ -3,6 +3,35 @@ useHead({
   title: 'Services & Pricing — Skin Fluent by Nicole',
 })
 
+/* Carries a quiz result onto this page — via ?profile=<slug> when someone
+   clicks through from the result screen, or localStorage when they arrive
+   later via the nav instead. See app/utils/skinProfiles.ts. */
+const route = useRoute()
+const profileSlug = ref<string | null>(null)
+onMounted(() => {
+  const fromQuery = route.query.profile
+  profileSlug.value = typeof fromQuery === 'string' ? fromQuery : recallQuizProfile()
+})
+const activeProfile = computed(() => (profileSlug.value ? SKIN_PROFILES[profileSlug.value] : null))
+
+/* ============================================================
+   BOOKING / PAYMENT LINKS
+   ------------------------------------------------------------
+   Fill in `bookingUrl` once Nicole picks a scheduling/payment
+   platform (Acuity, Square Appointments, Squarespace Scheduling,
+   etc.). Paste the direct booking link for that service below.
+   Until a service's `bookingUrl` is filled in, its "Book Now"
+   button falls back to the #booking note at the bottom of this
+   page — safe to leave live while the platform is being set up.
+
+   Note: Consultation and Transformation Journey are one-time
+   paid bookings — most scheduling platforms handle those fine.
+   Membership is $47/MONTH, recurring. Not every scheduling
+   platform bills recurring subscriptions natively — if Nicole's
+   platform doesn't, membership may need its own link instead
+   (e.g. a Stripe Payment Link, or that platform's subscription/
+   membership product), separate from the one-time booking link.
+   ============================================================ */
 const services = [
   {
     slug: 'consultation',
@@ -16,6 +45,7 @@ const services = [
       'Full coaching packet to keep',
       'Product recommendations',
     ],
+    bookingUrl: '',
   },
   {
     slug: 'transformation-journey',
@@ -31,6 +61,7 @@ const services = [
       'Full coaching packet + graduation summary',
     ],
     featured: true,
+    bookingUrl: '',
   },
   {
     slug: 'membership',
@@ -43,6 +74,7 @@ const services = [
       'Routine adjustments as your skin changes',
       'Seasonal updates',
     ],
+    bookingUrl: '', // recurring — see note above, this may differ from the links above
   },
 ]
 </script>
@@ -60,16 +92,29 @@ const services = [
       </div>
     </section>
 
+    <section v-if="activeProfile" class="container profile-banner">
+      <p>
+        Recommended for your <strong>{{ activeProfile.label }}</strong> result —
+        <NuxtLink to="/quiz">not you? Retake the quiz</NuxtLink>
+      </p>
+    </section>
+
     <section class="container services-list">
       <div
         v-for="service in services"
         :id="service.slug"
         :key="service.name"
         class="service-row"
-        :class="{ featured: service.featured }"
+        :class="{
+          featured: service.featured,
+          recommended: activeProfile?.suggestedService === service.slug,
+        }"
       >
         <div class="service-main">
           <span v-if="service.featured" class="badge">Best for Lasting Results</span>
+          <span v-if="activeProfile?.suggestedService === service.slug" class="badge badge-match">
+            Matches Your Result
+          </span>
           <h2>{{ service.name }}</h2>
           <p class="cadence">{{ service.cadence }}</p>
           <p class="best">{{ service.best }}</p>
@@ -82,7 +127,14 @@ const services = [
             <p class="price-label">Starting at</p>
             <p class="price">{{ service.price }}</p>
           </div>
-          <a href="#booking" class="btn btn-primary">Book Now</a>
+          <a
+            :href="withQuizProfileParam(service.bookingUrl, profileSlug) || '#booking'"
+            :target="service.bookingUrl ? '_blank' : undefined"
+            :rel="service.bookingUrl ? 'noopener' : undefined"
+            class="btn btn-primary"
+          >
+            {{ service.slug === 'membership' ? 'Join Membership' : 'Book Now' }}
+          </a>
         </div>
       </div>
     </section>
@@ -121,6 +173,24 @@ const services = [
   max-width: 560px;
 }
 
+.profile-banner {
+  padding: 28px 24px 0;
+  text-align: center;
+}
+.profile-banner p {
+  display: inline-block;
+  background: var(--color-sage-bg);
+  color: var(--color-navy);
+  font-size: 14px;
+  font-weight: 300;
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+.profile-banner a {
+  color: var(--color-sage);
+  text-decoration: underline;
+}
+
 .services-list {
   padding: 72px 24px;
   display: flex;
@@ -156,6 +226,11 @@ const services = [
   box-shadow: 0 16px 36px rgba(90, 140, 82, 0.16);
 }
 
+.service-row.recommended {
+  border-color: var(--color-mid-purple);
+  box-shadow: 0 0 0 2px var(--color-pale-lavender);
+}
+
 .badge {
   display: inline-block;
   background: var(--color-sage);
@@ -167,6 +242,11 @@ const services = [
   padding: 5px 14px;
   border-radius: 20px;
   margin-bottom: 12px;
+}
+
+.badge-match {
+  background: var(--color-mid-purple);
+  margin-left: 8px;
 }
 
 .service-main h2 {
