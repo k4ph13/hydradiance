@@ -14,69 +14,7 @@ onMounted(() => {
 })
 const activeProfile = computed(() => (profileSlug.value ? SKIN_PROFILES[profileSlug.value] : null))
 
-/* ============================================================
-   BOOKING / PAYMENT LINKS
-   ------------------------------------------------------------
-   Fill in `bookingUrl` once Nicole picks a scheduling/payment
-   platform (Acuity, Square Appointments, Squarespace Scheduling,
-   etc.). Paste the direct booking link for that service below.
-   Until a service's `bookingUrl` is filled in, its "Book Now"
-   button falls back to the #booking note at the bottom of this
-   page — safe to leave live while the platform is being set up.
-
-   Note: Consultation and Transformation Journey are one-time
-   paid bookings — most scheduling platforms handle those fine.
-   Membership is $47/MONTH, recurring. Not every scheduling
-   platform bills recurring subscriptions natively — if Nicole's
-   platform doesn't, membership may need its own link instead
-   (e.g. a Stripe Payment Link, or that platform's subscription/
-   membership product), separate from the one-time booking link.
-   ============================================================ */
-const services = [
-  {
-    slug: 'consultation',
-    name: 'The Consultation',
-    price: '$97',
-    cadence: 'One 45-minute virtual call',
-    best: 'Best for a single expert read on your skin, right now.',
-    includes: [
-      '45-minute virtual consultation',
-      'Personalized routine built for your skin',
-      'Full coaching packet to keep',
-      'Product recommendations',
-    ],
-    bookingUrl: '',
-  },
-  {
-    slug: 'transformation-journey',
-    name: 'The Transformation Journey',
-    price: '$297',
-    cadence: '12 weeks of guided coaching',
-    best: 'Best for lasting change — most skin concerns need consistency, not a single fix.',
-    includes: [
-      'Foundation call (Week 1)',
-      'Check-ins at Weeks 3, 6, and 9',
-      'Graduation review (Week 12)',
-      '12-week coaching workbook',
-      'Full coaching packet + graduation summary',
-    ],
-    featured: true,
-    bookingUrl: '',
-  },
-  {
-    slug: 'membership',
-    name: 'Membership',
-    price: '$47/mo',
-    cadence: 'Ongoing, for Journey graduates',
-    best: 'Best for keeping progress on track after the Journey ends.',
-    includes: [
-      'Monthly check-in',
-      'Routine adjustments as your skin changes',
-      'Seasonal updates',
-    ],
-    bookingUrl: '', // recurring — see note above, this may differ from the links above
-  },
-]
+// Service data and booking links live in app/utils/services.ts.
 </script>
 
 <template>
@@ -101,7 +39,7 @@ const services = [
 
     <section class="container services-list">
       <div
-        v-for="service in services"
+        v-for="service in SERVICES"
         :id="service.slug"
         :key="service.name"
         class="service-row"
@@ -127,13 +65,17 @@ const services = [
             <p class="price-label">Starting at</p>
             <p class="price">{{ service.price }}</p>
           </div>
+          <NuxtLink v-if="service.preBooking" :to="`/book?service=${service.slug}`" class="btn btn-primary">
+            Book Now
+          </NuxtLink>
           <a
-            :href="withQuizProfileParam(service.bookingUrl, profileSlug) || '#booking'"
+            v-else
+            :href="service.bookingUrl || '#booking'"
             :target="service.bookingUrl ? '_blank' : undefined"
             :rel="service.bookingUrl ? 'noopener' : undefined"
             class="btn btn-primary"
           >
-            {{ service.slug === 'membership' ? 'Join Membership' : 'Book Now' }}
+            Join Membership
           </a>
         </div>
       </div>

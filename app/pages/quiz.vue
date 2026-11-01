@@ -288,6 +288,21 @@ const FLODESK_CONFIG: Record<string, { endpoint: string; hiddenField: string; hi
   rosacea: { endpoint: '', hiddenField: '', hiddenValue: '' },
 }
 
+/* ---- Booking mode: /book sends visitors here as
+   /quiz?return=book&service=<slug> to take or retake the quiz, and
+   the result screen hands them straight back to booking ---- */
+const route = useRoute()
+const bookingService = ref<Service | null>(null)
+onMounted(() => {
+  // Read after mount: the prerendered page has no query string, so reading
+  // it during render would mismatch on hydration.
+  if (route.query.return !== 'book') return
+  const service = findService(route.query.service)
+  bookingService.value = service?.preBooking ? service : null
+})
+const bookHref = (quiz: 'confirmed' | 'skip') =>
+  `/book?service=${bookingService.value?.slug}&quiz=${quiz}`
+
 /* ---- State ---- */
 const stage = ref<'intro' | 'question' | 'result'>('intro')
 const qIndex = ref(0)
@@ -369,7 +384,23 @@ function computeResult() {
   })
   resultKey.value = best
   stage.value = 'result'
-  if (best) rememberQuizProfile(best)
+  if (best) {
+    rememberQuizResult({
+      profile: best,
+      takenAt: new Date().toISOString(),
+      answers: summarizeAnswers(),
+    })
+  }
+}
+
+/** Answers as readable text, for /book to pass along to Nicole. */
+function summarizeAnswers(): QuizAnswerSummary[] {
+  return QUESTIONS.map((q) => {
+    const a = answers[q.id]
+    const idxs = a === undefined ? [] : Array.isArray(a) ? a : [a]
+    const picked = idxs.map((i) => q.options[i]?.t).filter(Boolean)
+    return { question: q.label, answer: picked.length ? picked.join(', ') : 'None selected' }
+  })
 }
 
 function retake() {
@@ -447,6 +478,9 @@ async function submitEmail() {
       <p class="intro-note">No wrong answers. The more honest you are, the better your match.</p>
       <button type="button" class="btn btn-next" @click="startQuiz">Begin the Quiz</button>
       <div class="meta">Takes about 2 minutes · Free personalized result</div>
+      <div v-if="bookingService" class="booking-skip">
+        <NuxtLink :to="bookHref('skip')">Skip the quiz and continue booking</NuxtLink>
+      </div>
     </div>
 
     <div v-else-if="stage === 'question'" class="card">
@@ -504,7 +538,17 @@ async function submitEmail() {
         <div class="insight"><p v-html="profile.insight" /></div>
       </div>
 
-      <div class="capture">
+      <div v-if="bookingService" class="coach-cta booking-continue">
+        <h3>Ready to book {{ bookingService.name }}?</h3>
+        <p>Your {{ profile.name }} result is saved — next you can send it to Nicole ahead of your session.</p>
+        <div class="coach-actions">
+          <NuxtLink :to="bookHref('confirmed')" class="btn btn-primary">Continue to Booking →</NuxtLink>
+        </div>
+      </div>
+
+      <!-- In booking mode /book collects name + email itself, so the guide
+           sign-up is hidden here rather than asking for them twice. -->
+      <div v-if="!bookingService" class="capture">
         <template v-if="!submitted">
           <h3>Get Your Full {{ profile.name }} Guide</h3>
           <p>
@@ -537,7 +581,7 @@ async function submitEmail() {
         </div>
       </div>
 
-      <div class="coach-cta">
+      <div v-if="!bookingService" class="coach-cta">
         <h3>Recommended for {{ profile.name }}</h3>
         <p>Here's where to go next — both pick up with your {{ profile.name }} result already in hand.</p>
         <div class="coach-actions">
@@ -803,6 +847,22 @@ async function submitEmail() {
 }
 .intro .btn-next {
   margin-top: 30px;
+}
+.booking-skip {
+  margin-top: 14px;
+}
+.booking-skip a {
+  font-size: 12px;
+  color: var(--color-periwinkle);
+  text-decoration: underline;
+}
+
+.booking-continue {
+  border-top: none;
+  margin-top: 30px;
+  padding: 26px 24px;
+  background: var(--color-sage-bg);
+  border-radius: 18px;
 }
 
 /* ---------- Results ---------- */

@@ -34,6 +34,26 @@ export const SKIN_PROFILES: Record<string, SkinProfileMeta> = {
 }
 
 const STORAGE_KEY = 'skinfluent_quiz_profile'
+const RESULT_STORAGE_KEY = 'skinfluent_quiz_result'
+
+/** Skin changes, and the quiz asks about climate and current routine, so a
+ *  result older than this is offered as "retake recommended" on /book
+ *  rather than reused as-is. */
+export const QUIZ_RESULT_MAX_AGE_DAYS = 90
+
+export interface QuizAnswerSummary {
+  question: string
+  answer: string
+}
+
+/** The full quiz outcome, saved on the visitor's device so /book can send it
+ *  to Nicole. Answers are stored as display text (not option indexes) so
+ *  /book doesn't need the quiz's question data to describe them. */
+export interface SavedQuizResult {
+  profile: string
+  takenAt: string // ISO timestamp
+  answers: QuizAnswerSummary[]
+}
 
 /** Called when the quiz produces a result, so /services or /shop can still
  *  recognize the visitor if they arrive later via the nav rather than a
@@ -45,6 +65,32 @@ export function rememberQuizProfile(slug: string) {
   } catch {
     // Not persisted — query-param CTAs from the result page still work.
   }
+}
+
+export function rememberQuizResult(result: SavedQuizResult) {
+  rememberQuizProfile(result.profile)
+  try {
+    localStorage.setItem(RESULT_STORAGE_KEY, JSON.stringify(result))
+  } catch {
+    // Not persisted — /book just treats the visitor as not having a result.
+  }
+}
+
+export function recallQuizResult(): SavedQuizResult | null {
+  try {
+    const raw = localStorage.getItem(RESULT_STORAGE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as SavedQuizResult
+    if (!SKIN_PROFILES[parsed.profile] || !Array.isArray(parsed.answers)) return null
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+export function isQuizResultStale(result: SavedQuizResult): boolean {
+  const ageMs = Date.now() - new Date(result.takenAt).getTime()
+  return !(ageMs < QUIZ_RESULT_MAX_AGE_DAYS * 24 * 60 * 60 * 1000)
 }
 
 export function recallQuizProfile(): string | null {

@@ -37,6 +37,17 @@ useHead({
         answers and the email address you provide to receive your personalized guide.
       </p>
       <p>
+        <strong>Saved quiz result.</strong> Your most recent quiz result and answers are saved in
+        your own browser (local storage), so you don't have to retake the quiz when you book. They
+        stay on your device unless you choose to send them, and you can remove them by clearing
+        this site's data in your browser.
+      </p>
+      <p>
+        <strong>Before you book.</strong> When you book a session, you can choose to send Nicole
+        your first name, email address, the service you're booking, and your quiz answers, so she
+        can prepare for your session. Nothing is sent unless you check the box to share it.
+      </p>
+      <p>
         <strong>Contact page.</strong> The Contact page opens your own email client via a
         <code>mailto:</code> link — any message you send goes directly to Nicole's inbox and is
         never stored or processed by this website.
@@ -48,13 +59,15 @@ useHead({
       </p>
       <p>
         <strong>Cookies &amp; analytics.</strong> This site does not currently use cookies or
-        analytics tracking. If that changes, this policy will be updated first.
+        analytics tracking (the saved quiz result above is kept in local storage on your device
+        and is never sent anywhere unless you choose to share it). If that changes, this policy will be updated first.
       </p>
 
       <h2>How We Use Your Information</h2>
       <ul>
         <li>To send your personalized skin profile guide after the quiz</li>
         <li>To send occasional coaching-related emails, which you can unsubscribe from anytime</li>
+        <li>To prepare for your session, when you choose to send your quiz answers before booking</li>
         <li>To respond to messages sent through the Contact page</li>
       </ul>
 
